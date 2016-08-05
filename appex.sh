@@ -85,10 +85,10 @@ fi fi
 function SelectKernel()
 {
 if [[ $MyKernel == "3.2.0-4-686-pae" ]]; then
-wget --no-check-certificate -q -O /root/appex/bin/acce-3.10.61.0-[Debian_7_3.2.0-4-686-pae] "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/Debian/7/3.2.0-4-686-pae/x32/3.10.61.0/serverspeeder_2623"
+wget --no-check-certificate -q -O "/root/appex/apxfiles/bin/acce-3.10.61.0-[Debian_7_3.2.0-4-686-pae]" "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/Debian/7/3.2.0-4-686-pae/x32/3.10.61.0/serverspeeder_2623"
 fi
 if [[ $MyKernel == "3.2.0-4-amd64" ]]; then
-wget --no-check-certificate -q -O /root/appex/bin/acce-3.10.61.0-[Debian_7_3.2.0-4-amd64] "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/Debian/7/3.2.0-4-amd64/x64/3.10.61.0/serverspeeder_2626"
+wget --no-check-certificate -q -O "/root/appex/apxfiles/bin/acce-3.10.61.0-[Debian_7_3.2.0-4-amd64]" "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/Debian/7/3.2.0-4-amd64/x64/3.10.61.0/serverspeeder_2626"
 fi
 }
 
@@ -115,9 +115,10 @@ fi
 function ServerSpeeder()
 {
 if [[ `which unzip` == "" ]]; then
-apt-get install -y unzip
+apt-get update
+apt-get install -y unzip zip
 fi
-wget --no-check-certificate -q -O /root/appex.zip https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/appex.zip
+wget --no-check-certificate -q -O /root/appex.zip https://raw.githubusercontent.com/0oVicero0/serverSpeeser_Install/master/appex.zip
 mkdir -p /root/appex
 unzip -o -d /root/appex /root/appex.zip
 SelectKernel;
