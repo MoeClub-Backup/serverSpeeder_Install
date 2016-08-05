@@ -165,3 +165,6 @@ rootness;
 Clear;
 ServerIP;
 ServerSpeeder;
+rm -rf /root/appex* >/dev/null 2>&1
+clear
+bash /appex/bin/serverSpeeder.sh status
