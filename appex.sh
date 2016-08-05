@@ -160,6 +160,7 @@ bash /root/appex/install.sh
 }
 
 Welcome;
+rootness;
 Clear;
 ServerIP;
 ServerSpeeder;
