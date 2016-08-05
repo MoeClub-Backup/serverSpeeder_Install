@@ -38,6 +38,8 @@ chattr -R -i /appex >/dev/null 2>&1
 chattr -R -i /serverSpeeder >/dev/null 2>&1
 rm -rf /appex >/dev/null 2>&1
 rm -rf /serverSpeeder >/dev/null 2>&1
+sed -i '/deb cdrom/'d /etc/apt/sources.list
+sed -i '/^$/'d /etc/apt/sources.list
 }
 
 function ServerIP()
@@ -157,6 +159,7 @@ Install-ethtool;
 bash /root/appex/install.sh
 }
 
+Welcome;
 Clear;
 ServerIP;
 ServerSpeeder;
