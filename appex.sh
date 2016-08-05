@@ -115,7 +115,6 @@ function ServerSpeeder()
 if [[ `which unzip` == "" ]]; then
 apt-get install -y unzip
 fi
-rm -rf /root/appex*
 wget --no-check-certificate -q -O /root/appex.zip https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/appex.zip
 mkdir -p /root/appex
 unzip -o -d /root/appex /root/appex.zip
