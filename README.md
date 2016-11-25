@@ -29,8 +29,8 @@ echo "$yourIP dl.serverspeeder.com" > /etc/hosts
 https://github.com/0oVicero0/serverSpeeder_kernel/blob/master/serverSpeeder.txt
 ```
 改内核文件名字
-下载链接是这样的 https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/$1/$2/$3/$4/$5/$6   
-下载后文件名改成这样  acce-$5-[$1_$2_$3]
+下载链接是这样的```https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/$1/$2/$3/$4/$5/$6```   
+下载后文件名改成这样  ```acce-$5-[$1_$2_$3]```
 不该名字的话可能会出发某个BUG,Debian下会触发,别的系统没用过,不清楚。
 
 许可证的话在这里生成: ```http://serverspeeder.azurewebsites.net/```
