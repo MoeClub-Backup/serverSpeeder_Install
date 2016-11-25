@@ -34,8 +34,7 @@ https://github.com/0oVicero0/serverSpeeder_kernel/blob/master/serverSpeeder.txt
 https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/$1/$2/$3/$4/$5/$6
 ```
 下载后文件名改成这样  ```acce-$5-[$1_$2_$3]```
-不该名字的话可能会出发某个BUG,Debian下会触发,别的系统没用过,不清楚。
-
+如果不改名字,可能会触发某个BUG(Debian下会触发,别的系统没用过,不清楚。)
 许可证的话在这里生成: ```http://serverspeeder.azurewebsites.net/```
 需要填写你网卡的MAC地址,点击OK就可以了.
 也可以直接在服务器上运行下面这句(默认网卡为eth0):
