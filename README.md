@@ -6,10 +6,12 @@
 安装
 ```
 wget --no-check-certificate -O appex.sh https://raw.githubusercontent.com/0oVicero0/serverSpeeser_Install/master/appex.sh && chmod +x appex.sh && bash appex.sh install
+
 ```    
 卸载    
 ```
 wget --no-check-certificate -O appex.sh https://raw.githubusercontent.com/0oVicero0/serverSpeeser_Install/master/appex.sh && chmod +x appex.sh && bash appex.sh unstall
+
 ```  
 ----------------------------- 
 Nginx反代 (锐速检测许可证,嫌麻烦可不设置)
@@ -44,6 +46,7 @@ https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/$1/$2/$3
 需要填写你网卡的MAC地址,点击OK就可以了.
 也可以直接在服务器上运行下面这句:
 ```
-wget http://serverspeeder.azurewebsites.net/lic?mac=$(ifconfig |grep -B1 "$(wget -qO- ipv4.icanhazip.com)" |awk '/HWaddr/{ print $5 }')
+wget -O apx.lic http://serverspeeder.azurewebsites.net/lic?mac=$(ifconfig |grep -B1 "$(wget -qO- ipv4.icanhazip.com)" |awk '/HWaddr/{ print $5 }')
+
 ```
 Azure 东南亚机房,大佬们别搞我啊！
