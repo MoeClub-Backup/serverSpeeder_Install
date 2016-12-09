@@ -115,6 +115,7 @@ RscClear && apt-get -qq update && [ $? != '0' ] && Unstall && echo 'Error! ' && 
 [ -z $(which ethtool) ] && Unstall && echo "First, You should install ethtool manually! " && exit 1
 [ -n $(which ethtool) ] && ethtooldir=$(which ethtool)
 wget --no-check-certificate -q -O "/root/appex.zip" "https://raw.githubusercontent.com/0oVicero0/serverSpeeser_Install/master/appex.zip"
+[ ! -f /root/appex.zip ] && Unstall && echo "Error,Not Found appex.zip! " && exit 1
 mkdir -p /root/appex
 unzip -o -d /root/appex /root/appex.zip
 SelectKernel;
