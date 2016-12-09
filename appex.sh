@@ -44,7 +44,7 @@ Eth=$(ifconfig |grep -B1 "$(wget -qO- ipv4.icanhazip.com)" |awk '/eth/{ print $1
 [ -z "$Eth" ] && echo "I Can not find the server pubilc Ethernet! " && exit 1
 MyKernel=$(uname -r| grep -E "3.2.0-4-amd64|3.2.0-4-686-pae")
 [ -z "$MyKernel" ] && echo "The shell scripts only support Debian 7 (3.2.0-4) !" && exit 1
-echo 'ok! ' && pause;
+echo -ne 'ok! ' && pause;
 }
 
 function Install()
@@ -71,6 +71,7 @@ rm -rf /etc/rc3.d/S01serverSpeeder >/dev/null 2>&1
 rm -rf /etc/rc5.d/S01serverSpeeder >/dev/null 2>&1
 chattr -R -i /appex >/dev/null 2>&1
 rm -rf /appex >/dev/null 2>&1
+rm -rf /root/appex* >/dev/null 2>&1
 echo 'Unstall serverSpeeder finish! '
 exit 0
 }
@@ -121,11 +122,7 @@ sed -i "s/^accif\=.*/accif\=\"$Eth\"/" /root/appex/apxfiles/etc/config
 sed -i "s/^apxexe\=.*/apxexe\=\"\/appex\/bin\/$APXEXE\"/" /root/appex/apxfiles/etc/config
 }
 
-if [ "$1" == 'install' ]
-Install;
-elif [ "$1" == 'unstall' ]
-Unstall;
-else
-echo "$0 [install|unstall] "
-fi
+[ $# == '1' ] && [ "$1" == 'install' ] && Install;
+[ $# == '1' ] && [ "$1" == 'unstall' ] && Unstall;
+echo -ne "Usage:\n     bash $0 [install|unstall]\n"
 
