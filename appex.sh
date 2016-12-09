@@ -74,10 +74,23 @@ exit 0
 
 function Unstall()
 {
+[ -d /etc/rc.d ] && rm -rf /etc/rc.d/init.d/serverSpeeder >/dev/null 2>&1
+[ -d /etc/rc.d ] && rm -rf /etc/rc.d/rc2.d/*serverSpeeder >/dev/null 2>&1
+[ -d /etc/rc.d ] && rm -rf /etc/rc.d/rc3.d/*serverSpeeder >/dev/null 2>&1
+[ -d /etc/rc.d ] && rm -rf /etc/rc.d/rc4.d/*serverSpeeder >/dev/null 2>&1
+[ -d /etc/rc.d ] && rm -rf /etc/rc.d/rc5.d/*serverSpeeder >/dev/null 2>&1
+[ -d /etc/rc.d ] && rm -rf /etc/rc.d/rc0.d/*serverSpeeder >/dev/null 2>&1
+[ -d /etc/rc.d ] && rm -rf /etc/rc.d/rc1.d/*serverSpeeder >/dev/null 2>&1
+[ -d /etc/rc.d ] && rm -rf /etc/rc.d/rc6.d/*serverSpeeder >/dev/null 2>&1
+[ -d /etc/init.d ] && rm -rf /etc/init.d/serverSpeeder >/dev/null 2>&1
+[ -d /etc/init.d ] && rm -rf /etc/rc2.d/*serverSpeeder >/dev/null 2>&1
+[ -d /etc/init.d ] && rm -rf /etc/rc3.d/*serverSpeeder >/dev/null 2>&1
+[ -d /etc/init.d ] && rm -rf /etc/rc4.d/*serverSpeeder >/dev/null 2>&1
+[ -d /etc/init.d ] && rm -rf /etc/rc5.d/*serverSpeeder >/dev/null 2>&1
+[ -d /etc/init.d ] && rm -rf /etc/rc0.d/*serverSpeeder >/dev/null 2>&1
+[ -d /etc/init.d ] && rm -rf /etc/rc1.d/*serverSpeeder >/dev/null 2>&1
+[ -d /etc/init.d ] && rm -rf /etc/rc6.d/*serverSpeeder >/dev/null 2>&1
 rm -rf /etc/serverSpeeder.conf >/dev/null 2>&1
-rm -rf /etc/rc2.d/S01serverSpeeder >/dev/null 2>&1
-rm -rf /etc/rc3.d/S01serverSpeeder >/dev/null 2>&1
-rm -rf /etc/rc5.d/S01serverSpeeder >/dev/null 2>&1
 chattr -R -i /appex >/dev/null 2>&1
 rm -rf /appex >/dev/null 2>&1
 rm -rf /root/appex* >/dev/null 2>&1
