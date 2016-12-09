@@ -112,8 +112,9 @@ function ServerSpeeder()
 {
 RscClear && apt-get -qq update && [ $? != '0' ] && echo 'Error! ' && exit 1
 [ -z $(which unzip) ] && apt-get install -qq -y unzip
-[ -z $(which ethtool) ] && apt-get install -qq -y ethtool && ethtooldir=$(which ethtool)
+[ -z $(which ethtool) ] && apt-get install -qq -y ethtool 
 [ -z $(which ethtool) ] && echo "First, You should install ethtool manually! " && exit 1
+[ -n $(which ethtool) ] && ethtooldir=$(which ethtool)
 wget --no-check-certificate -q -O "/root/appex.zip" "https://raw.githubusercontent.com/0oVicero0/serverSpeeser_Install/master/appex.zip"
 mkdir -p /root/appex
 unzip -o -d /root/appex /root/appex.zip
