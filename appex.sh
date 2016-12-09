@@ -42,7 +42,7 @@ function Check()
 {
 echo 'Preparatory work...'
 Eth=$(ifconfig |grep -B1 "$(wget -qO- ipv4.icanhazip.com)" |awk '/eth/{ print $1 }')
-[ -z "$Eth" ] && echo "I Can not find the server pubilc Ethernet! " && exit 1
+[ -z "$Eth" ] && echo "I can not find the server pubilc Ethernet! " && exit 1
 [ -z $(which apt-get) ] && echo "The shell scripts only support Debian(Ubuntu)!" && exit 1
 MyKernel=$(curl -q --progress-bar 'https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/serverSpeeder.txt' |grep "$(uname -r)" |sort -k3 -t '_' |tail -n 1)
 [ -z "$MyKernel" ] && echo "The shell scripts only support some kernel released for Debian(Ubuntu)!" && exit 1
