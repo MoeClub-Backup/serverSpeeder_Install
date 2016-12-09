@@ -16,7 +16,7 @@ wget --no-check-certificate -O appex.sh https://raw.githubusercontent.com/0oVice
 ----------------------------- 
 Nginx反代 (锐速检测许可证,嫌麻烦可不设置)
 ```
-echo "$yourIP dl.serverspeeder.com" > /etc/hosts
+echo "${yourIP} dl.serverspeeder.com" > /etc/hosts
 ```
 ```
 	server {
