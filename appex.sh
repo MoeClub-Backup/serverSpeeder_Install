@@ -32,20 +32,17 @@ echo "";
 fi
 }
 
-function RscClear()
-{
-sed -i '/deb cdrom/'d /etc/apt/sources.list
-sed -i '/^\s$/'d /etc/apt/sources.list
-}
-
 function Check()
 {
 echo 'Preparatory work...'
+apt-get >/dev/null 2>&1
+[ $? -le '1' ] && apt-get -y -qq install wget curl grep unzip ethtool >/dev/null 2>&1
+yum >/dev/null 2>&1
+[ $? -le '1' ] && yum -y -q install which wget sed curl grep awk unzip ethtool >/dev/null 2>&1
 Eth=$(ifconfig |grep -B1 "$(wget -qO- ipv4.icanhazip.com)" |awk '/eth/{ print $1 }')
 [ -z "$Eth" ] && echo "I can not find the server pubilc Ethernet! " && exit 1
-[ -z $(which apt-get) ] && echo "The shell scripts only support Debian(Ubuntu)!" && exit 1
 MyKernel=$(curl -q --progress-bar 'https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/serverSpeeder.txt' |grep "$(uname -r)" |sort -k3 -t '_' |tail -n 1)
-[ -z "$MyKernel" ] && echo "The shell scripts only support some kernel released for Debian(Ubuntu)!" && exit 1
+[ -z "$MyKernel" ] && echo "The shell scripts only support some kernel released for Linux!" && exit 1
 pause;
 }
 
@@ -74,7 +71,6 @@ exit 0
 
 function Unstall()
 {
-update-rc.d serverSpeeder disable >/dev/null 2>&1
 rm -rf /etc/serverSpeeder.conf >/dev/null 2>&1
 rm -rf /etc/rc2.d/S01serverSpeeder >/dev/null 2>&1
 rm -rf /etc/rc3.d/S01serverSpeeder >/dev/null 2>&1
@@ -110,10 +106,6 @@ fi
 
 function ServerSpeeder()
 {
-RscClear && apt-get -qq update && [ $? != '0' ] && Unstall && echo 'Error! ' && exit 1
-[ -z $(which unzip) ] && apt-get install -qq -y unzip
-[ -z $(which ethtool) ] && apt-get install -qq -y ethtool 
-[ -z $(which ethtool) ] && Unstall && echo "First, You should install ethtool manually! " && exit 1
 [ -n $(which ethtool) ] && ethtooldir=$(which ethtool)
 wget --no-check-certificate -q -O "/root/appex.zip" "https://raw.githubusercontent.com/0oVicero0/serverSpeeser_Install/master/appex.zip"
 [ ! -f /root/appex.zip ] && Unstall && echo "Error,Not Found appex.zip! " && exit 1
