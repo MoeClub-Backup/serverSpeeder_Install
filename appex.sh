@@ -6,8 +6,7 @@ clear
 printf "                Service Time : " && date -R
 echo "            ======================================================";
 echo "            |                    serverSpeeder                   |";
-echo "            |                                          Debian 7  |";
-echo "            |                                           3.2.0-4  |";
+echo "            |                                 Debian 7 (3.2.0-4) |";
 echo "            |----------------------------------------------------|";
 echo "            |                                       -- By .Vicer |";
 echo "            ======================================================";
@@ -63,6 +62,8 @@ exit 0
 
 function Unstall()
 {
+Welcome;
+rootness;
 update-rc.d serverSpeeder disable >/dev/null 2>&1
 rm -rf /etc/serverSpeeder.conf >/dev/null 2>&1
 rm -rf /etc/rc2.d/S01serverSpeeder >/dev/null 2>&1
