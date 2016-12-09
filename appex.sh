@@ -24,7 +24,6 @@ fi
 
 function pause()
 {
-echo "";
 read -n 1 -p "Press Enter to Continue..." INP
 if [ "$INP" != '' ] ; then
 echo -ne '\b \n'
@@ -42,53 +41,29 @@ sed -i '/deb cdrom/'d /etc/apt/sources.list
 sed -i '/^$/'d /etc/apt/sources.list
 }
 
-function ServerIP()
+function Check()
 {
-serverip=$(wget -qO- ipv4.icanhazip.com)
-printf "Default Server IP: \e[36m$serverip\e[0m .\nIf Default Server IP \e[31mcorrect\e[0m, Press Enter .\nIf Default Server IP \e[31mincorrect\e[0m, Please input Server IP :"
-read serveriptmp
-if [[ -n "$serveriptmp" ]]; then
-    serverip=$serveriptmp
-fi
-printf "Server IP: \e[35m$serverip\e[0m .\n";
-ETHER;
-if [[ "$sysOVZ" == "yes" ]]; then
-echo "Your server NOT support serverSpeeder! "
-pause;
-exit 1
-elif [[ "$sysOVZ" == "no" ]]; then
-MyKernel=`uname -r| grep -E "3.2.0-4-amd64|3.2.0-4-686-pae"`
-if [[ $MyKernel == "" ]]; then
-echo "Your server NOT support $0! "
-pause;
-exit 1
-fi fi
+echo 'Preparatory work...'
+Eth=$(ifconfig |grep -B1 "$(wget -qO- ipv4.icanhazip.com)" |awk '/eth/{ print $1 }')
+[ -z "$Eth" ] && echo "I Can not find the server pubilc Ethernet! " && exit 1
+MyKernel=$(uname -r| grep -E "3.2.0-4-amd64|3.2.0-4-686-pae")
+[ -z "$MyKernel" ] && echo "The shell scripts only support Debian 7 (3.2.0-4) !" && exit 1
+echo 'ok! ' && pause;
 }
 
 function ETHER()
 {
-ETH=`ifconfig |awk '/venet/{ print $1 }' |sed -n '1p'`;
-if [[ "$ETH" == "venet0" ]]; then
-Eth="venet0";
-sysOVZ="yes";
-else
-ETH=`ifconfig |awk '/eth/{ print $1 }' |sed -n '1p'`;
-if [[ "$ETH" == "eth1" ]]; then
-Eth="eth1";
-sysOVZ="no";
-elif [[ "$ETH" == "eth0" ]]; then
-Eth="eth0";
-sysOVZ="no";
-fi fi
+ifconfig |grep -B1 "$IPv4" |awk '/eth/{ print $1 }'
 }
 
 function SelectKernel()
 {
 if [[ $MyKernel == "3.2.0-4-686-pae" ]]; then
 wget --no-check-certificate -q -O "/root/appex/apxfiles/bin/acce-3.10.61.0-[Debian_7_3.2.0-4-686-pae]" "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/Debian/7/3.2.0-4-686-pae/x32/3.10.61.0/serverspeeder_2623"
-fi
-if [[ $MyKernel == "3.2.0-4-amd64" ]]; then
+elif [[ $MyKernel == "3.2.0-4-amd64" ]]; then
 wget --no-check-certificate -q -O "/root/appex/apxfiles/bin/acce-3.10.61.0-[Debian_7_3.2.0-4-amd64]" "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/Debian/7/3.2.0-4-amd64/x64/3.10.61.0/serverspeeder_2626"
+else
+
 fi
 }
 
