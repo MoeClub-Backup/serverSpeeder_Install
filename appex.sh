@@ -58,7 +58,6 @@ Welcome;
 Check;
 ServerSpeeder;
 dl-Lic;
-Install-ethtool;
 bash /root/appex/install.sh
 rm -rf /root/appex* >/dev/null 2>&1
 clear
@@ -79,6 +78,7 @@ function dl-Lic()
 chattr -R -i /appex >/dev/null 2>&1
 rm -rf /appex >/dev/null 2>&1
 mkdir -p /appex/etc
+mkdir -p /appex/bin
 MAC=$(ifconfig "$Eth" |awk '/HWaddr/{ print $5 }')
 wget --no-check-certificate -q -O "/appex/etc/apx.lic" "http://serverspeeder.azurewebsites.net/lic?mac=$MAC"
 SIZE=$(du -b /appex/etc/apx.lic |awk '{ print $1 }')
@@ -90,15 +90,17 @@ dl-Lic;
 else
 echo "Lic download success! "
 chattr +i /appex/etc/apx.lic
+rm -rf /appex/bin/ethtool >/dev/null 2>&1
+cp -f $ethtooldir /appex/bin
 fi
 }
 
 function ServerSpeeder()
 {
-if [[ `which unzip` == "" ]]; then
-apt-get update
-apt-get install -y unzip zip
-fi
+apt-get -qq update && [ $? != '0' ] && echo 'Error! ' && exit 1
+[ -z $(which unzip) ] && apt-get install -qq -y unzip
+[ -z $(which ethtool) ] && apt-get install -qq -y ethtool && ethtooldir=$(which ethtool)
+[ -z $(which ethtool) ] && echo "First, You will install ethtool manually! && exit 1
 wget --no-check-certificate -q -O "/root/appex.zip" "https://raw.githubusercontent.com/0oVicero0/serverSpeeser_Install/master/appex.zip"
 mkdir -p /root/appex
 unzip -o -d /root/appex /root/appex.zip
@@ -106,20 +108,6 @@ SelectKernel;
 APXEXE=$(ls -1 /root/appex/apxfiles/bin |grep 'acce-')
 sed -i "s/^accif\=.*/accif\=\"$Eth\"/" /root/appex/apxfiles/etc/config
 sed -i "s/^apxexe\=.*/apxexe\=\"\/appex\/bin\/$APXEXE\"/" /root/appex/apxfiles/etc/config
-}
-
-function Install-ethtool()
-{
-ethtooldir=`which ethtool`
-if [[ "$ethtooldir" != "" ]]; then
-rm -rf /appex/bin/ethtool >/dev/null 2>&1
-mkdir -p /appex/bin
-cp -f $ethtooldir /appex/bin
-chmod -R +X /appex >/dev/null 2>&1
-else
-apt-get install -y -qq ethtool >/dev/null 2>&1
-Install-ethtool;
-fi
 }
 
 Install;
