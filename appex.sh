@@ -31,14 +31,10 @@ echo "";
 fi
 }
 
-function Clear()
+function RscClear()
 {
-chattr -R -i /appex >/dev/null 2>&1
-chattr -R -i /serverSpeeder >/dev/null 2>&1
-rm -rf /appex >/dev/null 2>&1
-rm -rf /serverSpeeder >/dev/null 2>&1
 sed -i '/deb cdrom/'d /etc/apt/sources.list
-sed -i '/^$/'d /etc/apt/sources.list
+sed -i '/^\s$/'d /etc/apt/sources.list
 }
 
 function Check()
@@ -62,6 +58,20 @@ bash /root/appex/install.sh
 rm -rf /root/appex* >/dev/null 2>&1
 clear
 bash /appex/bin/serverSpeeder.sh status
+exit 0
+}
+
+function Unstall()
+{
+update-rc.d serverSpeeder disable >/dev/null 2>&1
+rm -rf /etc/serverSpeeder.conf >/dev/null 2>&1
+rm -rf /etc/rc2.d/S01serverSpeeder >/dev/null 2>&1
+rm -rf /etc/rc3.d/S01serverSpeeder >/dev/null 2>&1
+rm -rf /etc/rc5.d/S01serverSpeeder >/dev/null 2>&1
+chattr -R -i /appex >/dev/null 2>&1
+rm -rf /appex >/dev/null 2>&1
+echo 'Unstall serverSpeeder finish! '
+exit 0
 }
 
 function SelectKernel()
@@ -97,7 +107,7 @@ fi
 
 function ServerSpeeder()
 {
-apt-get -qq update && [ $? != '0' ] && echo 'Error! ' && exit 1
+RscClear && apt-get -qq update && [ $? != '0' ] && echo 'Error! ' && exit 1
 [ -z $(which unzip) ] && apt-get install -qq -y unzip
 [ -z $(which ethtool) ] && apt-get install -qq -y ethtool && ethtooldir=$(which ethtool)
 [ -z $(which ethtool) ] && echo "First, You will install ethtool manually! && exit 1
@@ -110,4 +120,11 @@ sed -i "s/^accif\=.*/accif\=\"$Eth\"/" /root/appex/apxfiles/etc/config
 sed -i "s/^apxexe\=.*/apxexe\=\"\/appex\/bin\/$APXEXE\"/" /root/appex/apxfiles/etc/config
 }
 
+if [ "$1" == 'install' ]
 Install;
+elif [ "$1" == 'unstall' ]
+Unstall;
+else
+echo "$0 [install|unstall]"
+fi
+
