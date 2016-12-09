@@ -12,6 +12,7 @@ echo "            |----------------------------------------------------|";
 echo "            |                                       -- By .Vicer |";
 echo "            ======================================================";
 echo "";
+rootness;
 }
 
 function rootness()
@@ -43,17 +44,18 @@ echo 'Preparatory work...'
 rootness;
 Eth=$(ifconfig |grep -B1 "$(wget -qO- ipv4.icanhazip.com)" |awk '/eth/{ print $1 }')
 [ -z "$Eth" ] && echo "I Can not find the server pubilc Ethernet! " && exit 1
-MyKernel=$(curl -q 'https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/serverSpeeder.txt' |grep "$(uname -r)" |sort -k3 -t '_' |tail -n 1)
+[ -z $(which apt-get) ] && echo "The shell scripts only support Debian(Ubuntu)!" && exit 1
+MyKernel=$(curl -q --progress-bar 'https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/serverSpeeder.txt' |grep "$(uname -r)" |sort -k3 -t '_' |tail -n 1)
 [ -z "$MyKernel" ] && echo "The shell scripts only support some release for Debian(Ubuntu)!" && exit 1
 echo -ne 'ok! ' && pause;
 }
 
 function SelectKernel()
 {
-KNA=$(echo $MyKernel |awk -F '/' '{ print $1 }') && [ -z $KNA ] && echo "Error,Not Found! " && exit 1
-KNN=$(echo $MyKernel |awk -F '/' '{ print $2 }') && [ -z $KNN ] && echo "Error,Not Found! " && exit 1
-KNK=$(echo $MyKernel |awk -F '/' '{ print $3 }') && [ -z $KNK ] && echo "Error,Not Found! " && exit 1
-KNV=$(echo $MyKernel |awk -F '/' '{ print $5 }') && [ -z $KNV ] && echo "Error,Not Found! " && exit 1
+KNA=$(echo $MyKernel |awk -F '/' '{ print $1 }') && [ -z $KNA ] && Unstall && echo "Error,Not Found! " && exit 1
+KNN=$(echo $MyKernel |awk -F '/' '{ print $2 }') && [ -z $KNN ] && Unstall && echo "Error,Not Found! " && exit 1
+KNK=$(echo $MyKernel |awk -F '/' '{ print $3 }') && [ -z $KNK ] && Unstall && echo "Error,Not Found! " && exit 1
+KNV=$(echo $MyKernel |awk -F '/' '{ print $5 }') && [ -z $KNV ] && Unstall && echo "Error,Not Found! " && exit 1
 wget --no-check-certificate -q -O "/root/appex/apxfiles/bin/acce-$KNV-[$KNA_$KNN_$KNK]" "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/$MyKernel"
 }
 
@@ -73,7 +75,6 @@ exit 0
 function Unstall()
 {
 Welcome;
-rootness;
 update-rc.d serverSpeeder disable >/dev/null 2>&1
 rm -rf /etc/serverSpeeder.conf >/dev/null 2>&1
 rm -rf /etc/rc2.d/S01serverSpeeder >/dev/null 2>&1
@@ -110,10 +111,10 @@ fi
 
 function ServerSpeeder()
 {
-RscClear && apt-get -qq update && [ $? != '0' ] && echo 'Error! ' && exit 1
+RscClear && apt-get -qq update && [ $? != '0' ] && Unstall && echo 'Error! ' && exit 1
 [ -z $(which unzip) ] && apt-get install -qq -y unzip
 [ -z $(which ethtool) ] && apt-get install -qq -y ethtool 
-[ -z $(which ethtool) ] && echo "First, You should install ethtool manually! " && exit 1
+[ -z $(which ethtool) ] && Unstall && echo "First, You should install ethtool manually! " && exit 1
 [ -n $(which ethtool) ] && ethtooldir=$(which ethtool)
 wget --no-check-certificate -q -O "/root/appex.zip" "https://raw.githubusercontent.com/0oVicero0/serverSpeeser_Install/master/appex.zip"
 mkdir -p /root/appex
