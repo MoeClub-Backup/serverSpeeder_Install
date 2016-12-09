@@ -3,12 +3,12 @@
 -----------------------------      
 ----------------------------- 
 #Debian 7  3.2.0-4   
-安装
+Install
 ```
 wget --no-check-certificate -O appex.sh https://raw.githubusercontent.com/0oVicero0/serverSpeeser_Install/master/appex.sh && chmod +x appex.sh && bash appex.sh install
 
 ```    
-卸载    
+Unstall    
 ```
 wget --no-check-certificate -O appex.sh https://raw.githubusercontent.com/0oVicero0/serverSpeeser_Install/master/appex.sh && chmod +x appex.sh && bash appex.sh unstall
 
@@ -49,4 +49,4 @@ https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/$1/$2/$3
 wget -O apx.lic http://serverspeeder.azurewebsites.net/lic?mac=$(ifconfig |grep -B1 "$(wget -qO- ipv4.icanhazip.com)" |awk '/HWaddr/{ print $5 }')
 
 ```
-Azure 东南亚机房,大佬们别搞我啊！
+
