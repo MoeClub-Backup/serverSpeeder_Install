@@ -48,6 +48,15 @@ MyKernel=$(uname -r| grep -E "3.2.0-4-amd64|3.2.0-4-686-pae")
 echo -ne 'ok! ' && pause;
 }
 
+function SelectKernel()
+{
+if [[ "$MyKernel" == '3.2.0-4-686-pae' ]]; then
+wget --no-check-certificate -q -O "/root/appex/apxfiles/bin/acce-3.10.61.0-[Debian_7_3.2.0-4-686-pae]" "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/Debian/7/3.2.0-4-686-pae/x32/3.10.61.0/serverspeeder_2623"
+elif [[ "$MyKernel" == '3.2.0-4-amd64' ]]; then
+wget --no-check-certificate -q -O "/root/appex/apxfiles/bin/acce-3.10.61.0-[Debian_7_3.2.0-4-amd64]" "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/Debian/7/3.2.0-4-amd64/x64/3.10.61.0/serverspeeder_2626"
+fi
+}
+
 function Install()
 {
 Welcome;
@@ -75,15 +84,6 @@ rm -rf /appex >/dev/null 2>&1
 rm -rf /root/appex* >/dev/null 2>&1
 echo 'serverSpeeder have been removed! '
 exit 0
-}
-
-function SelectKernel()
-{
-if [[ "$MyKernel" == '3.2.0-4-686-pae' ]]; then
-wget --no-check-certificate -q -O "/root/appex/apxfiles/bin/acce-3.10.61.0-[Debian_7_3.2.0-4-686-pae]" "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/Debian/7/3.2.0-4-686-pae/x32/3.10.61.0/serverspeeder_2623"
-elif [[ "$MyKernel" == '3.2.0-4-amd64' ]]; then
-wget --no-check-certificate -q -O "/root/appex/apxfiles/bin/acce-3.10.61.0-[Debian_7_3.2.0-4-amd64]" "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/Debian/7/3.2.0-4-amd64/x64/3.10.61.0/serverspeeder_2626"
-fi
 }
 
 function dl-Lic()
