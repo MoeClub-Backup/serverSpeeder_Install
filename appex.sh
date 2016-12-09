@@ -7,7 +7,7 @@ clear
 printf "                Service Time : " && date -R
 echo "            ======================================================";
 echo "            |                    serverSpeeder                   |";
-echo "            |                                 Debian 7 (3.2.0-4) |";
+echo "            |                                    Debian(Ubuntu)  |";
 echo "            |----------------------------------------------------|";
 echo "            |                                       -- By .Vicer |";
 echo "            ======================================================";
@@ -43,18 +43,18 @@ echo 'Preparatory work...'
 rootness;
 Eth=$(ifconfig |grep -B1 "$(wget -qO- ipv4.icanhazip.com)" |awk '/eth/{ print $1 }')
 [ -z "$Eth" ] && echo "I Can not find the server pubilc Ethernet! " && exit 1
-MyKernel=$(uname -r| grep -E "3.2.0-4-amd64|3.2.0-4-686-pae")
-[ -z "$MyKernel" ] && echo "The shell scripts only support Debian 7 (3.2.0-4) !" && exit 1
+MyKernel=$(curl -q 'https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/serverSpeeder.txt' |grep "$(uname -r)" |sort -k3 -t '_' |tail -n 1)
+[ -z "$MyKernel" ] && echo "The shell scripts only support some release for Debian(Ubuntu)!" && exit 1
 echo -ne 'ok! ' && pause;
 }
 
 function SelectKernel()
 {
-if [[ "$MyKernel" == '3.2.0-4-686-pae' ]]; then
-wget --no-check-certificate -q -O "/root/appex/apxfiles/bin/acce-3.10.61.0-[Debian_7_3.2.0-4-686-pae]" "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/Debian/7/3.2.0-4-686-pae/x32/3.10.61.0/serverspeeder_2623"
-elif [[ "$MyKernel" == '3.2.0-4-amd64' ]]; then
-wget --no-check-certificate -q -O "/root/appex/apxfiles/bin/acce-3.10.61.0-[Debian_7_3.2.0-4-amd64]" "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/Debian/7/3.2.0-4-amd64/x64/3.10.61.0/serverspeeder_2626"
-fi
+KNA=$(echo $MyKernel |awk -F '/' '{ print $1 }') && [ -z $KNA ] && echo "Error,Not Found! " && exit 1
+KNN=$(echo $MyKernel |awk -F '/' '{ print $2 }') && [ -z $KNN ] && echo "Error,Not Found! " && exit 1
+KNK=$(echo $MyKernel |awk -F '/' '{ print $3 }') && [ -z $KNK ] && echo "Error,Not Found! " && exit 1
+KNV=$(echo $MyKernel |awk -F '/' '{ print $5 }') && [ -z $KNV ] && echo "Error,Not Found! " && exit 1
+wget --no-check-certificate -q -O "/root/appex/apxfiles/bin/acce-$KNV-[$KNA_$KNN_$KNK]" "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/$MyKernel"
 }
 
 function Install()
