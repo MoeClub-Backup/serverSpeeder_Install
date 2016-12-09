@@ -41,7 +41,7 @@ yum >/dev/null 2>&1
 [ $? -le '1' ] && yum -y -q install which wget sed curl grep awk unzip ethtool >/dev/null 2>&1
 Eth=$(ifconfig |grep -B1 "$(wget -qO- ipv4.icanhazip.com)" |awk '/eth/{ print $1 }')
 [ -z "$Eth" ] && echo "I can not find the server pubilc Ethernet! " && exit 1
-MyKernel=$(curl -q --progress-bar 'https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/serverSpeeder.txt' |grep "$(uname -r)" |sort -k3 -t '_' |tail -n 1)
+MyKernel=$(curl -q --progress-bar 'https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/serverSpeeder.txt' |grep "/$(uname -r)/" |sort -k3 -t '_' |tail -n 1)
 [ -z "$MyKernel" ] && echo "The shell scripts only support some kernel released for Linux!" && exit 1
 pause;
 }
