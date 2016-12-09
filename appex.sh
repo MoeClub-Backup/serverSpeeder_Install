@@ -44,6 +44,7 @@ sed -i '/^$/'d /etc/apt/sources.list
 function Check()
 {
 echo 'Preparatory work...'
+rootness;
 Eth=$(ifconfig |grep -B1 "$(wget -qO- ipv4.icanhazip.com)" |awk '/eth/{ print $1 }')
 [ -z "$Eth" ] && echo "I Can not find the server pubilc Ethernet! " && exit 1
 MyKernel=$(uname -r| grep -E "3.2.0-4-amd64|3.2.0-4-686-pae")
@@ -51,19 +52,25 @@ MyKernel=$(uname -r| grep -E "3.2.0-4-amd64|3.2.0-4-686-pae")
 echo 'ok! ' && pause;
 }
 
-function ETHER()
+function Install()
 {
-ifconfig |grep -B1 "$IPv4" |awk '/eth/{ print $1 }'
+Welcome;
+Check;
+ServerSpeeder;
+dl-Lic;
+Install-ethtool;
+bash /root/appex/install.sh
+rm -rf /root/appex* >/dev/null 2>&1
+clear
+bash /appex/bin/serverSpeeder.sh status
 }
 
 function SelectKernel()
 {
-if [[ $MyKernel == "3.2.0-4-686-pae" ]]; then
+if [[ "$MyKernel" == '3.2.0-4-686-pae' ]]; then
 wget --no-check-certificate -q -O "/root/appex/apxfiles/bin/acce-3.10.61.0-[Debian_7_3.2.0-4-686-pae]" "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/Debian/7/3.2.0-4-686-pae/x32/3.10.61.0/serverspeeder_2623"
-elif [[ $MyKernel == "3.2.0-4-amd64" ]]; then
+elif [[ "$MyKernel" == '3.2.0-4-amd64' ]]; then
 wget --no-check-certificate -q -O "/root/appex/apxfiles/bin/acce-3.10.61.0-[Debian_7_3.2.0-4-amd64]" "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/Debian/7/3.2.0-4-amd64/x64/3.10.61.0/serverspeeder_2626"
-else
-
 fi
 }
 
@@ -72,9 +79,9 @@ function dl-Lic()
 chattr -R -i /appex >/dev/null 2>&1
 rm -rf /appex >/dev/null 2>&1
 mkdir -p /appex/etc
-MAC=`ifconfig $Eth | awk '/HWaddr/{ print $5 }'`
-wget --no-check-certificate -q -O /appex/etc/apx.lic "http://serverspeeder.azurewebsites.net/lic?mac=$MAC"
-SIZE=`du -b /appex/etc/apx.lic |awk '{ print $1 }'`
+MAC=$(ifconfig "$Eth" |awk '/HWaddr/{ print $5 }')
+wget --no-check-certificate -q -O "/appex/etc/apx.lic" "http://serverspeeder.azurewebsites.net/lic?mac=$MAC"
+SIZE=$(du -b /appex/etc/apx.lic |awk '{ print $1 }')
 if [[ $SIZE == '0' ]]; then
 echo "Lic download error, try again! "
 echo "Please wait..."
@@ -83,7 +90,6 @@ dl-Lic;
 else
 echo "Lic download success! "
 chattr +i /appex/etc/apx.lic
-Install-serverspeeder;
 fi
 }
 
@@ -93,26 +99,13 @@ if [[ `which unzip` == "" ]]; then
 apt-get update
 apt-get install -y unzip zip
 fi
-wget --no-check-certificate -q -O /root/appex.zip https://raw.githubusercontent.com/0oVicero0/serverSpeeser_Install/master/appex.zip
+wget --no-check-certificate -q -O "/root/appex.zip" "https://raw.githubusercontent.com/0oVicero0/serverSpeeser_Install/master/appex.zip"
 mkdir -p /root/appex
 unzip -o -d /root/appex /root/appex.zip
 SelectKernel;
-APXEXE=`du -a /root/appex/apxfiles/bin |awk -F "/" '/acce/{ print $6 }'`
+APXEXE=$(ls -1 /root/appex/apxfiles/bin |grep 'acce-')
+sed -i "s/^accif\=.*/accif\=\"$Eth\"/" /root/appex/apxfiles/etc/config
 sed -i "s/^apxexe\=.*/apxexe\=\"\/appex\/bin\/$APXEXE\"/" /root/appex/apxfiles/etc/config
-HOSTS=`cat /etc/hosts | grep 'dl.serverspeeder.com' | awk '{print $1}'`
-if [[ "$HOSTS" != $serverip ]]; then
-echo " " >> /etc/hosts
-echo "$serverip	$serverip dl.serverspeeder.com" >> /etc/hosts
-fi
-HOSTS=`cat /etc/hosts | grep 'my.serverspeeder.com' | awk '{print $1}'`
-if [[ "$HOSTS" != "127.0.0.1" ]]; then
-echo "127.0.0.1 my.serverspeeder.com" >> /etc/hosts
-fi
-HOSTS=`cat /etc/hosts | grep 'www.serverspeeder.com' | awk '{print $1}'`
-if [[ "$HOSTS" != "127.0.0.1" ]]; then
-echo "127.0.0.1 www.serverspeeder.com" >> /etc/hosts
-fi
-dl-Lic;
 }
 
 function Install-ethtool()
@@ -129,17 +122,4 @@ Install-ethtool;
 fi
 }
 
-function Install-serverspeeder()
-{
-Install-ethtool;
-bash /root/appex/install.sh
-}
-
-Welcome;
-rootness;
-Clear;
-ServerIP;
-ServerSpeeder;
-rm -rf /root/appex* >/dev/null 2>&1
-clear
-bash /appex/bin/serverSpeeder.sh status
+Install;
