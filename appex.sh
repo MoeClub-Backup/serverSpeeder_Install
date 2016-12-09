@@ -39,16 +39,19 @@ apt-get >/dev/null 2>&1
 [ $? -le '1' ] && apt-get -y -qq install wget curl grep unzip ethtool >/dev/null 2>&1
 yum >/dev/null 2>&1
 [ $? -le '1' ] && yum -y -q install which wget sed curl grep awk unzip ethtool >/dev/null 2>&1
+[ -f /etc/redhat-release ] && KNA=$(awk '{print $1}' /etc/redhat-release)
+[ -f /etc/os-release ] && KNA=$(awk -F'[= "]' '/PRETTY_NAME/{print $3}' /etc/os-release)
+[ -f /etc/lsb-release ] && KNA=$(awk -F'[="]+' '/DESCRIPTION/{print $2}' /etc/lsb-release)
+KNB=$(getconf LONG_BIT)
 Eth=$(ifconfig |grep -B1 "$(wget -qO- ipv4.icanhazip.com)" |awk '/eth/{ print $1 }')
 [ -z "$Eth" ] && echo "I can not find the server pubilc Ethernet! " && exit 1
-MyKernel=$(curl -q --progress-bar 'https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/serverSpeeder.txt' |grep "/$(uname -r)/" |sort -k3 -t '_' |tail -n 1)
+MyKernel=$(curl -q --progress-bar 'https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/serverSpeeder.txt' |grep "$KNA/" |grep "/x$KNB/" |grep "/$(uname -r)/" |sort -k3 -t '_' |tail -n 1)
 [ -z "$MyKernel" ] && echo "The shell scripts only support some kernel released for Linux!" && exit 1
 pause;
 }
 
 function SelectKernel()
 {
-KNA=$(echo $MyKernel |awk -F '/' '{ print $1 }') && [ -z $KNA ] && Unstall && echo "Error,Not Found! " && exit 1
 KNN=$(echo $MyKernel |awk -F '/' '{ print $2 }') && [ -z $KNN ] && Unstall && echo "Error,Not Found! " && exit 1
 KNK=$(echo $MyKernel |awk -F '/' '{ print $3 }') && [ -z $KNK ] && Unstall && echo "Error,Not Found! " && exit 1
 KNV=$(echo $MyKernel |awk -F '/' '{ print $5 }') && [ -z $KNV ] && Unstall && echo "Error,Not Found! " && exit 1
