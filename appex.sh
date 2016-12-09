@@ -7,7 +7,7 @@ clear
 printf "                Service Time : " && date -R
 echo "            ======================================================";
 echo "            |                    serverSpeeder                   |";
-echo "            |                                    Debian(Ubuntu)  |";
+echo "            |                                           Linux    |";
 echo "            |----------------------------------------------------|";
 echo "            |                                       -- By .Vicer |";
 echo "            ======================================================";
@@ -41,7 +41,7 @@ yum >/dev/null 2>&1
 [ $? -le '1' ] && yum -y -q install which wget sed curl grep awk unzip ethtool >/dev/null 2>&1
 [ -f /etc/redhat-release ] && KNA=$(awk '{print $1}' /etc/redhat-release)
 [ -f /etc/os-release ] && KNA=$(awk -F'[= "]' '/PRETTY_NAME/{print $3}' /etc/os-release)
-[ -f /etc/lsb-release ] && KNA=$(awk -F'[="]+' '/DESCRIPTION/{print $2}' /etc/lsb-release)
+[ -f /etc/lsb-release ] && KNA=$(awk -F'[="]+' '/DISTRIB_ID/{print $2}' /etc/lsb-release)
 KNB=$(getconf LONG_BIT)
 Eth=$(ifconfig |grep -B1 "$(wget -qO- ipv4.icanhazip.com)" |awk '/eth/{ print $1 }')
 [ -z "$Eth" ] && echo "I can not find the server pubilc Ethernet! " && exit 1
