@@ -126,6 +126,6 @@ Install;
 elif [ "$1" == 'unstall' ]
 Unstall;
 else
-echo "$0 [install|unstall]"
+echo "$0 [install|unstall] "
 fi
 
