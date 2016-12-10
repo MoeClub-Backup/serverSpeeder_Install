@@ -106,6 +106,8 @@ rm -rf /appex >/dev/null 2>&1
 mkdir -p /appex/etc
 mkdir -p /appex/bin
 MAC=$(ifconfig "$Eth" |awk '/HWaddr/{ print $5 }')
+[ -z "$MAC" ] && MAC=$(ifconfig "$Eth" |awk '/ether/{ print $2 }')
+[ -z "$MAC" ] && Unstall && echo "Not Found MAC address! " && exit 1
 wget --no-check-certificate -q -O "/appex/etc/apx.lic" "http://serverspeeder.azurewebsites.net/lic?mac=$MAC"
 SIZE=$(du -b /appex/etc/apx.lic |awk '{ print $1 }')
 if [[ $SIZE == '0' ]]; then
