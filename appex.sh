@@ -90,7 +90,7 @@ function Unstall()
 [ -d /etc/init.d ] && rm -rf /etc/rc0.d/*lotServer >/dev/null 2>&1
 [ -d /etc/init.d ] && rm -rf /etc/rc1.d/*lotServer >/dev/null 2>&1
 [ -d /etc/init.d ] && rm -rf /etc/rc6.d/*lotServer >/dev/null 2>&1
-rm -rf /etc/serverSpeeder.conf >/dev/null 2>&1
+rm -rf /etc/lotServer.conf >/dev/null 2>&1
 chattr -R -i /appex >/dev/null 2>&1
 rm -rf /appex >/dev/null 2>&1
 rm -rf /root/appex* >/dev/null 2>&1
