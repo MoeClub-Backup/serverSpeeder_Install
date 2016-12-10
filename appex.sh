@@ -45,7 +45,7 @@ yum >/dev/null 2>&1
 KNB=$(getconf LONG_BIT)
 Eth=$(ifconfig |grep -B1 "$(wget -qO- ipv4.icanhazip.com)" |awk '/eth/{ print $1 }')
 [ -z "$Eth" ] && echo "I can not find the server pubilc Ethernet! " && exit 1
-MyKernel=$(curl -q --progress-bar 'https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/serverSpeeder.txt' |grep "$KNA/" |grep "/x$KNB/" |grep "/$(uname -r)/" |sort -k3 -t '_' |tail -n 1)
+MyKernel=$(curl -k -q --progress-bar 'https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/serverSpeeder.txt' |grep "$KNA/" |grep "/x$KNB/" |grep "/$(uname -r)/" |sort -k3 -t '_' |tail -n 1)
 [ -z "$MyKernel" ] && echo "The shell scripts only support some kernel released for Linux!" && exit 1
 pause;
 }
