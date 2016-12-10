@@ -52,9 +52,9 @@ pause;
 
 function SelectKernel()
 {
-KNN=$(echo $MyKernel |awk -F '/' '{ print $2 }') && [ -z "$KNN" ] && Unstall && echo "Error,Not Found! " && exit 1
-KNK=$(echo $MyKernel |awk -F '/' '{ print $3 }') && [ -z "$KNK" ] && Unstall && echo "Error,Not Found! " && exit 1
-KNV=$(echo $MyKernel |awk -F '/' '{ print $5 }') && [ -z "$KNV" ] && Unstall && echo "Error,Not Found! " && exit 1
+KNN=$(echo $MyKernel |awk -F '/' '{ print $2 }') && [ -z "$KNN" ] && Unstall && echo "Error,Not Matched! " && exit 1
+KNK=$(echo $MyKernel |awk -F '/' '{ print $3 }') && [ -z "$KNK" ] && Unstall && echo "Error,Not Matched! " && exit 1
+KNV=$(echo $MyKernel |awk -F '/' '{ print $5 }') && [ -z "$KNV" ] && Unstall && echo "Error,Not Matched! " && exit 1
 wget --no-check-certificate -q -O "/root/appex/apxfiles/bin/acce-"$KNV"-["$KNA"_"$KNN"_"$KNK"]" "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/$MyKernel"
 [ ! -f "/root/appex/apxfiles/bin/acce-"$KNV"-["$KNA"_"$KNN"_"$KNK"]" ] && Unstall && echo "Download Error,Not Found acce-$KNV-[$KNA_$KNN_$KNK]! " && exit 1
 }
