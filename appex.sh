@@ -98,7 +98,7 @@ chattr -R -i /appex >/dev/null 2>&1
 bash /appex/bin/lotServer.sh uninstall -f >/dev/null 2>&1
 rm -rf /appex >/dev/null 2>&1
 rm -rf /root/appex* >/dev/null 2>&1
-echo 'lotServer have been removed! '
+echo -ne 'lotServer have been removed! \n'
 exit 0
 }
 
