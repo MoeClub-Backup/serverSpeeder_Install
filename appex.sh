@@ -114,7 +114,6 @@ echo "Lic generate success! "
 chattr +i /appex/etc/apx.lic
 rm -rf /appex/bin/ethtool >/dev/null 2>&1
 cp -f $ethtooldir /appex/bin
-fi
 }
 
 function ServerSpeeder()
