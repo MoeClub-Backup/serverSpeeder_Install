@@ -4,7 +4,7 @@ function Welcome()
 {
 cd /root
 clear
-printf "                Server Time : " && date -R
+echo -n "                      Server Time :  " && date "+%F [%T]       ";
 echo "            ======================================================";
 echo "            |                    serverSpeeder                   |";
 echo "            |                                         for Linux  |";
