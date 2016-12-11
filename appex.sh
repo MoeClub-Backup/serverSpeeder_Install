@@ -110,12 +110,7 @@ MAC=$(ifconfig "$Eth" |awk '/HWaddr/{ print $5 }')
 [ -z "$MAC" ] && Unstall && echo "Not Found MAC address! " && exit 1
 wget --no-check-certificate -q -O "/appex/etc/apx.lic" "http://serverspeeder.azurewebsites.net/lic?mac=$MAC"
 SIZE=$(du -b /appex/etc/apx.lic |awk '{ print $1 }')
-if [[ $SIZE == '0' ]]; then
-echo "Lic download error, try again! "
-echo "Please wait..."
-sleep 7;
-dl-Lic;
-else
+[ "$SIZE" -ne '152' ] && Unstall && echo "Error! I can not generate the Lic for you, Please trg again later! " && exit 1
 echo "Lic download success! "
 chattr +i /appex/etc/apx.lic
 rm -rf /appex/bin/ethtool >/dev/null 2>&1
