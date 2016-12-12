@@ -53,10 +53,7 @@ addStartUpLink() {
 		if [ -n "$CHKCONFIG" ]; then
 			chkconfig --add $PRODUCT_ID >/dev/null
 		else
-			ln -sf /etc/rc.d/init.d/$PRODUCT_ID /etc/rc.d/rc2.d/S20$PRODUCT_ID
-			ln -sf /etc/rc.d/init.d/$PRODUCT_ID /etc/rc.d/rc3.d/S20$PRODUCT_ID
-			ln -sf /etc/rc.d/init.d/$PRODUCT_ID /etc/rc.d/rc4.d/S20$PRODUCT_ID
-			ln -sf /etc/rc.d/init.d/$PRODUCT_ID /etc/rc.d/rc5.d/S20$PRODUCT_ID
+			echo "Error, Please install 'chkconfig', and run 'chkconfig --add $PRODUCT_ID' to auto start." 
 		fi
 	}
 	grep "SUSE" /etc/issue >/dev/null
@@ -67,18 +64,21 @@ addStartUpLink() {
 		if [ -n "$CHKCONFIG" ]; then
 			chkconfig --add $PRODUCT_ID >/dev/null
 		else
-			ln -sf /etc/rc.d/$PRODUCT_ID /etc/rc.d/rc2.d/S06$PRODUCT_ID
-			ln -sf /etc/rc.d/$PRODUCT_ID /etc/rc.d/rc3.d/S06$PRODUCT_ID
-			ln -sf /etc/rc.d/$PRODUCT_ID /etc/rc.d/rc5.d/S06$PRODUCT_ID
+			echo "Error, Please install 'chkconfig', and run 'chkconfig --add $PRODUCT_ID' to auto start." 
 		fi
 	}
 	grep -E "Ubuntu|Debian" /etc/issue >/dev/null
 	[ $? -eq 0 ] && {
 		ln -sf $ROOT_PATH/bin/$SHELL_NAME /etc/init.d/$PRODUCT_ID
 		[ -z "$boot" -o "$boot" = "n" ] && return 
-		ln -sf /etc/init.d/$PRODUCT_ID /etc/rc2.d/S03$PRODUCT_ID
-		ln -sf /etc/init.d/$PRODUCT_ID /etc/rc3.d/S03$PRODUCT_ID
-		ln -sf /etc/init.d/$PRODUCT_ID /etc/rc5.d/S03$PRODUCT_ID
+		DEBIAN_AUTO=/etc/init.d/.depend.start
+		CHKCONFIG=`which update-rc.d`
+		if [ -n "$CHKCONFIG" ]; then
+			update-rc.d $PRODUCT_ID defaults >/dev/null
+			[[ -z "$(cat $DEBIAN_AUTO|head -n 1 |grep "$PRODUCT_ID")" ]] && update-rc.d $PRODUCT_ID enable >/dev/null
+		else
+			echo "Error, Please install 'update-rc.d', and run 'update-rc.d $PRODUCT_ID defaults' or 'update-rc.d $PRODUCT_ID enable' to auto start." 
+		fi
 	}
 	ln -sf $ROOT_PATH/etc/config /etc/$PRODUCT_ID.conf
 }
