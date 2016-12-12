@@ -9,7 +9,7 @@
 #
 ### BEGIN INIT INFO
 # Provides: lotServer
-# Required-Start: $network
+# Required-Start: $all
 # Required-Stop:
 # Default-Start: 2 3 5
 # Default-Stop: 0 1 6
