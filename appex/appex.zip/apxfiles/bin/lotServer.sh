@@ -172,7 +172,7 @@ initConf() {
 	RUNCONFIG_BAK=$ROOT_PATH/etc/.runconfig
 	CPUNUM=0
 	VER_STAGE=1
-	HOST=download.appexnetworks.com.cn
+	HOST=acce.azurewebsites.net
 	trap "userCancel;" 1 2 3 6 9 15
 
 	local rst=0
