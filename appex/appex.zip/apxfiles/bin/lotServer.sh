@@ -11,7 +11,7 @@
 # Provides: lotServer
 # Required-Start: $all
 # Required-Stop:
-# Default-Start: 2 3 5
+# Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
 # Description: Start LotServer daemon.
 ### END INIT INFO
