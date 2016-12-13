@@ -71,16 +71,14 @@ addStartUpLink() {
 	[ $? -eq 0 ] && {
 		ln -sf $ROOT_PATH/bin/$SHELL_NAME /etc/init.d/$PRODUCT_ID
 		[ -z "$boot" -o "$boot" = "n" ] && return 
-		DEBIAN_AUTO=/etc/init.d/.depend.start
 		CHKCONFIG=`which update-rc.d`
 		if [ -n "$CHKCONFIG" ]; then
+		        update-rc.d -f $PRODUCT_ID remove >/dev/null
 			update-rc.d $PRODUCT_ID defaults >/dev/null
-			[[ -z "$(cat $DEBIAN_AUTO|head -n 1 |grep "$PRODUCT_ID")" ]] && update-rc.d $PRODUCT_ID enable >/dev/null
 		else
-			echo "Error, Please install 'update-rc.d', and run 'update-rc.d $PRODUCT_ID defaults' or 'update-rc.d $PRODUCT_ID enable' to auto start." 
+			echo "Error, Please install 'update-rc.d', and run 'update-rc.d $PRODUCT_ID defaults' to auto start." 
 		fi
 	}
-	ln -sf $ROOT_PATH/etc/config /etc/$PRODUCT_ID.conf
 }
 
 [ -d $ROOT_PATH/bin ] || mkdir -p $ROOT_PATH/bin
