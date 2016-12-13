@@ -2,7 +2,6 @@
 
 function Welcome()
 {
-cd /root
 clear
 echo -n "                      Server Time :  " && date "+%F [%T]       ";
 echo "            ======================================================";
@@ -13,6 +12,7 @@ echo "            |                                       -- By .Vicer |";
 echo "            ======================================================";
 echo "";
 rootness;
+cd /root
 }
 
 function rootness()
