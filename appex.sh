@@ -48,7 +48,7 @@ Eth=$(ifconfig |grep -B1 "$(wget -qO- ipv4.icanhazip.com)" |awk -F '[: ]' '/eth/
 tmpEth=$(echo "$tmpEth"|sed 's/[ \t]*//g') && [ -n "$tmpEth" ] && [ -z $(echo "$tmpEth" |grep -E -i "venet") ] && [[ -n $(ifconfig |grep -E "$tmpEth") ]] && Eth="$tmpEth";
 [ -z "$Eth" ] && echo "I can not find the server pubilc Ethernet! " && exit 1
 URLKernel='https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/serverSpeeder.txt'
-MyKernel=$(curl -k -q --progress-bar "$URLKernel" |grep "$KNA/" |grep "/x$KNB/" |grep "/$(uname -r)/" |sort -k3 -t '_' |tail -n 1)
+MyKernel=$(curl -k -q --progress-bar "$URLKernel" |grep "$KNA/" |grep "/x$KNB/" |grep "/$KNK/" |sort -k3 -t '_' |tail -n 1)
 [ -z "$MyKernel" ] && echo -ne "Kernel not be matched! \nYou should change kernel manually, and try again! \n\nView the link to get detaits: \n"$URLKernel" \n\n\n" && exit 1
 pause;
 }
@@ -56,7 +56,6 @@ pause;
 function SelectKernel()
 {
 KNN=$(echo $MyKernel |awk -F '/' '{ print $2 }') && [ -z "$KNN" ] && Unstall && echo "Error,Not Matched! " && exit 1
-KNK=$(echo $MyKernel |awk -F '/' '{ print $3 }') && [ -z "$KNK" ] && Unstall && echo "Error,Not Matched! " && exit 1
 KNV=$(echo $MyKernel |awk -F '/' '{ print $5 }') && [ -z "$KNV" ] && Unstall && echo "Error,Not Matched! " && exit 1
 wget --no-check-certificate -q -O "/root/appex/apxfiles/bin/acce-"$KNV"-["$KNA"_"$KNN"_"$KNK"]" "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/$MyKernel"
 [ ! -f "/root/appex/apxfiles/bin/acce-"$KNV"-["$KNA"_"$KNN"_"$KNK"]" ] && Unstall && echo "Download Error,Not Found acce-$KNV-[$KNA_$KNN_$KNK]! " && exit 1
@@ -132,7 +131,8 @@ sed -i "s/^accif\=.*/accif\=\"$Eth\"/" /root/appex/apxfiles/etc/config
 sed -i "s/^apxexe\=.*/apxexe\=\"\/appex\/bin\/$APXEXE\"/" /root/appex/apxfiles/etc/config
 }
 
-[ $# == '1' ] && [ "$1" == 'install' ] && Install;
+[ $# == '1' ] && [ "$1" == 'install' ] && KNK="$(uname -r)" && Install;
 [ $# == '1' ] && [ "$1" == 'unstall' ] && Welcome && pause && Unstall;
+[ $# == '2' ] && [ "$1" == 'install' ] && KNK="$2" && Install;
 echo -ne "Usage:\n     bash $0 [install|unstall]\n"
 
