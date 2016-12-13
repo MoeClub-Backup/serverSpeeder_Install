@@ -51,7 +51,7 @@ addStartUpLink() {
 		[ -z "$boot" -o "$boot" = "n" ] && return
 		CHKCONFIG=`which chkconfig`
 		if [ -n "$CHKCONFIG" ]; then
-			chkconfig --add $PRODUCT_ID >/dev/null
+			chkconfig --add $PRODUCT_ID >/dev/null 2>&1
 		else
 			echo "Error, Please install 'chkconfig', and run 'chkconfig --add $PRODUCT_ID' to auto start." 
 		fi
@@ -62,7 +62,7 @@ addStartUpLink() {
 		[ -z "$boot" -o "$boot" = "n" ] && return
 		CHKCONFIG=`which chkconfig`
 		if [ -n "$CHKCONFIG" ]; then
-			chkconfig --add $PRODUCT_ID >/dev/null
+			chkconfig --add $PRODUCT_ID >/dev/null 2>&1
 		else
 			echo "Error, Please install 'chkconfig', and run 'chkconfig --add $PRODUCT_ID' to auto start." 
 		fi
@@ -73,8 +73,8 @@ addStartUpLink() {
 		[ -z "$boot" -o "$boot" = "n" ] && return 
 		CHKCONFIG=`which update-rc.d`
 		if [ -n "$CHKCONFIG" ]; then
-		        update-rc.d -f $PRODUCT_ID remove >/dev/null
-			update-rc.d $PRODUCT_ID defaults >/dev/null
+		        update-rc.d -f $PRODUCT_ID remove >/dev/null 2>&1
+			update-rc.d $PRODUCT_ID defaults >/dev/null 2>&1
 		else
 			echo "Error, Please install 'update-rc.d', and run 'update-rc.d $PRODUCT_ID defaults' to auto start." 
 		fi
