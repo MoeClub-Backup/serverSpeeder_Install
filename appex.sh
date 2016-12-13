@@ -116,13 +116,11 @@ wget --no-check-certificate -q -O "/appex/etc/apx.lic" "http://serverspeeder.azu
 [ "$(du -b /appex/etc/apx.lic |awk '{ print $1 }')" -ne '152' ] && Unstall && echo "Error! I can not generate the Lic for you, Please try again later! " && exit 1
 echo "Lic generate success! "
 chattr +i /appex/etc/apx.lic
-rm -rf /appex/bin/ethtool >/dev/null 2>&1
-cp -f $ethtooldir /appex/bin
+[ -n $(which ethtool) ] && rm -rf /appex/bin/ethtool && cp -f $(which ethtool) /appex/bin
 }
 
 function ServerSpeeder()
 {
-[ -n $(which ethtool) ] && ethtooldir=$(which ethtool)
 [ ! -f /root/appex.zip ] && wget --no-check-certificate -q -O "/root/appex.zip" "https://raw.githubusercontent.com/0oVicero0/serverSpeeser_Install/master/appex.zip"
 [ ! -f /root/appex.zip ] && Unstall && echo "Error,Not Found appex.zip! " && exit 1
 mkdir -p /root/appex
