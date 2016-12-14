@@ -46,7 +46,7 @@ KNB=$(getconf LONG_BIT)
 ifconfig >/dev/null 2>&1
 [ $? -gt '1' ] && echo -ne "I can not run 'ifconfig' successfully! \nPlease check your system, and try again! \n\n" && exit 1;
 Eth=$(ifconfig |grep -B1 "$(wget -qO- ipv4.icanhazip.com)" |awk -F '[: ]' '/eth/{ print $1 }') 
-NumEth=$(ifconfig |awk -F '[: ]' '/eth/{ print $1 }' |sed -n '$=') && [ "$NumEth" -ne '1' ] && Eth='';
+[ -n "$Eth" ] && NumEth=$(ifconfig |awk -F '[: ]' '/eth/{ print $1 }' |sed -n '$=')
 [ -z "$Eth" ] && echo -ne "It is seem that you server not as usually. \nPlease input your public Ethernet: " && read tmpEth;
 tmpEth=$(echo "$tmpEth"|sed 's/[ \t]*//g') && [ -n "$tmpEth" ] && [ -z $(echo "$tmpEth" |grep -E -i "venet") ] && [[ -n $(ifconfig |grep -E "$tmpEth") ]] && Eth="$tmpEth";
 [ -z "$Eth" ] && echo "I can not find the server pubilc Ethernet! " && exit 1
