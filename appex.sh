@@ -134,6 +134,6 @@ sed -i "s/^apxexe\=.*/apxexe\=\"\/appex\/bin\/$APXEXE\"/" /root/appex/apxfiles/e
 [ $# == '1' ] && [ "$1" == 'install' ] && KNK="$(uname -r)" && Install;
 [ $# == '1' ] && [ "$1" == 'unstall' ] && Welcome && pause && Unstall;
 [ $# == '2' ] && [ "$1" == 'install' ] && KNK="$2" && Install;
-echo -ne "Usage:\n     bash $0 [install |unstall |install '{Kernel Version}']\n"
+echo -ne "Usage:\n     bash $0 [install |unstall |install '{lotServer of Kernel Version}']\n"
 
 
