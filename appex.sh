@@ -110,6 +110,7 @@ chattr -R -i /appex >/dev/null 2>&1
 rm -rf /appex >/dev/null 2>&1
 mkdir -p /appex/etc
 mkdir -p /appex/bin
+[ -n "$NumEth" ] && [ "$NumEth" -ne '1' ] && Eth='eth0'
 MAC=$(ifconfig "$Eth" |awk '/HWaddr/{ print $5 }')
 [ -z "$MAC" ] && MAC=$(ifconfig "$Eth" |awk '/ether/{ print $2 }')
 [ -z "$MAC" ] && Unstall && echo "Not Found MAC address! " && exit 1
