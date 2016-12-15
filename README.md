@@ -2,7 +2,12 @@
 #\#  serverSpeeder Install  \#                           
 -----------------------------      
 ----------------------------- 
-#For Linux (simple)
+#For Linux (simple)   
+Usage    
+```
+Usage:     
+      bash appex.sh [install |unstall |install '{lotServer of Kernel Version}']     
+```
 Install
 ```
 wget --no-check-certificate -O appex.sh https://raw.githubusercontent.com/0oVicero0/serverSpeeser_Install/master/appex.sh && chmod +x appex.sh && bash appex.sh install
@@ -13,11 +18,6 @@ Unstall
 wget --no-check-certificate -O appex.sh https://raw.githubusercontent.com/0oVicero0/serverSpeeser_Install/master/appex.sh && chmod +x appex.sh && bash appex.sh unstall
 
 ```  
-Usage   
-```
-Usage:     
-      bash appex.sh [install |unstall |install '{lotServer of Kernel Version}']     
-```
 ----------------------------- 
 -----------------------------
 部分用法说明(制作一键脚本或手动安装)
