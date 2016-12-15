@@ -215,8 +215,8 @@ showStats() {
             lanInRate=$(echo "($lanIn - $lanInPre) / (1024 * $CALC_ITV)" | bc -l)
             wanOutRate=$(echo "($wanOut - $wanOutPre) / (1024 * $CALC_ITV)" | bc -l)
             lanOutRate=$(echo "($lanOut - $lanOutPre) / (1024 * $CALC_ITV)" | bc -l)
-            [[ "($wanInPackets - $wanInPacketsPre)" -ne '0' ]] && wanPacketsRate=$(echo "($wanOutPackets - $wanOutPacketsPre) / ($wanInPackets - $wanInPacketsPre) / ($CALC_ITV) + 1" | bc -l) || wanPacketsRate='1.00'
-            [[ "($lanInPackets - $lanInPacketsPre)" -ne '0' ]] && lanPacketsRate=$(echo "($lanOutPackets - $lanOutPacketsPre) / ($lanInPackets - $lanInPacketsPre) / ($CALC_ITV) + 1" | bc -l) || lanPacketsRate='1.00'
+            [[ "($wanInPackets - $wanInPacketsPre)" -ne '0' ]] && wanPacketsRate=$(echo "($wanOutPackets - $wanOutPacketsPre) / ($wanInPackets - $wanInPacketsPre)" | bc -l) || wanPacketsRate='1.00'
+            [[ "($lanInPackets - $lanInPacketsPre)" -ne '0' ]] && lanPacketsRate=$(echo "($lanOutPackets - $lanOutPacketsPre) / ($lanInPackets - $lanInPacketsPre)" | bc -l) || lanPacketsRate='1.00'
             
             if [ $CPUNUM -gt 1 ]; then
                 ((NumOfFlowsTotal = $NumOfFlowsTotal + $NumOfFlows))
@@ -245,8 +245,8 @@ showStats() {
         done
         if [ $CPUNUM -gt 1 ]; then
             cmd="$cmd echo \"Total:\";"
-            cmd="$cmd printf \"\${showLan:+wan }in :  $HL_START%.2F$HL_END kB/s\t\${showLan:+wan }out: $HL_START%.2F$HL_END kB/s\n\" $wanInRateTotal $wanOutRateTotal;"
-            [ -n "$showLan" ] && cmd="$cmd printf \"lan out: $HL_START%.2F$HL_END kB/s\tlan in :  $HL_START%.2F$HL_END kB/s\n\" $lanOutRateTotal $lanInRateTotal;"
+            cmd="$cmd printf \"\${showLan:+wan }in :  $HL_START%.2F$HL_END kB/s\t\${showLan:+wan }out: $HL_START%.2F$HL_END kB/s\npackets : $HL_START%.2F$HL_END\n\" $wanInRateTotal $wanOutRateTotal $wanPacketsRate;"
+            [ -n "$showLan" ] && cmd="$cmd printf \"lan out: $HL_START%.2F$HL_END kB/s\tlan in :  $HL_START%.2F$HL_END kB/s\nlan packets : $HL_START%.2F$HL_END\n\" $lanOutRateTotal $lanInRateTotal $lanPacketsRate;"
             cmd="$cmd printf \"sessions: $HL_START%d$HL_END\n\" $NumOfFlowsTotal;"
             cmd="$cmd printf \"tcp sessions: $HL_START%d$HL_END\n\" $NumOfTcpFlowsTotal;"
             cmd="$cmd printf \"accelerated tcp sessions: $HL_START%d$HL_END\n\" $NumOfAccFlowsTotal;"
