@@ -18,7 +18,7 @@ wget --no-check-certificate -O appex.sh https://raw.githubusercontent.com/0oVice
 -----------------------------
 部分用法说明(制作一键脚本或手动安装)
 -----------------------------
-具体用哪个加速模块看(搜索)这个文件,选择最合适的.         
+具体用哪个加速模块检索这个文件,选择最合适的.         
 ```
 https://github.com/0oVicero0/serverSpeeder_kernel/blob/master/serverSpeeder.txt
 ```
