@@ -43,6 +43,6 @@ wget -O apx.lic http://serverspeeder.azurewebsites.net/lic?mac=$(ifconfig |grep 
 ```     
 -----------------------------      
 ----------------------------- 
-萌咖 - MoeClub.org    
+[萌咖 - MoeClub.org](https://MoeClub.org)    
 -----------------------------      
 #仅供学习测试使用,严禁用于商业用途.
