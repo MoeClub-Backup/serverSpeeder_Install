@@ -41,5 +41,8 @@ https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/$1/$2/$3
 wget -O apx.lic http://serverspeeder.azurewebsites.net/lic?mac=$(ifconfig |grep -B1 "$(wget -qO- ipv4.icanhazip.com)" |awk '/HWaddr/{ print $5 }')
 
 ```     
+-----------------------------      
+----------------------------- 
 萌咖 - MoeClub.org    
+-----------------------------      
 #仅供学习测试使用,严禁用于商业用途.
