@@ -1,5 +1,6 @@
 -----------------------------   
-#\#  serverSpeeder Install  \#                           
+#\#  serverSpeeder Install  \#    
+#\#                 --.Vicer [MoeClub.org]
 -----------------------------      
 ----------------------------- 
 #For Linux (simple)   
