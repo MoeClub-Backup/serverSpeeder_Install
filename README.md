@@ -6,20 +6,26 @@
 Usage    
 ```
 Usage:     
-      bash appex.sh [install |unstall |install '{lotServer of Kernel Version}']     
+      bash appex.sh [install |uninstall |install '{serverSpeeder of Kernel Version}']     
 ```
 Install
 ```
 wget --no-check-certificate -O appex.sh https://raw.githubusercontent.com/0oVicero0/serverSpeeser_Install/master/appex.sh && chmod +x appex.sh && bash appex.sh install
 
 ```    
-Unstall    
+Uninstall    
 ```
-wget --no-check-certificate -O appex.sh https://raw.githubusercontent.com/0oVicero0/serverSpeeser_Install/master/appex.sh && chmod +x appex.sh && bash appex.sh unstall
+wget --no-check-certificate -O appex.sh https://raw.githubusercontent.com/0oVicero0/serverSpeeser_Install/master/appex.sh && chmod +x appex.sh && bash appex.sh uninstall
 
 ```  
------------------------------ 
+-----------------------------     
+使用此脚本安装时如遇许可证错误，可尝试使用此命令更新许可证。
+```    
+bash /appex/bin/serverSpeeder.sh renewLic
+```
+
 -----------------------------
+-----------------------------    
 部分用法说明(制作一键脚本或手动安装,仅供学习测试使用)
 -----------------------------
 具体用哪个加速模块检索这个文件,选择最合适的.         
