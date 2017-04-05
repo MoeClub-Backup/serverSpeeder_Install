@@ -96,7 +96,8 @@ function Unstall()
 [ -d /etc/init.d ] && rm -rf /etc/rc6.d/*serverSpeeder >/dev/null 2>&1
 rm -rf /etc/serverSpeeder.conf >/dev/null 2>&1
 chattr -R -i /appex >/dev/null 2>&1
-bash /appex/bin/serverSpeeder.sh uninstall -f >/dev/null 2>&1
+[ -f /appex/bin/lotServer.sh ] && bash /appex/bin/lotServer.sh uninstall -f >/dev/null 2>&1
+[ -f /appex/bin/serverSpeeder.sh ] && bash /appex/bin/serverSpeeder.sh uninstall -f >/dev/null 2>&1
 rm -rf /appex >/dev/null 2>&1
 rm -rf /tmp/appex* >/dev/null 2>&1
 echo -ne 'serverSpeeder have been removed! \n\n\n'
