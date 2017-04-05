@@ -57,10 +57,10 @@ pause;
 
 function SelectKernel()
 {
-KNN=$(echo $MyKernel |awk -F '/' '{ print $2 }') && [ -z "$KNN" ] && Unstall && echo "Error,Not Matched! " && exit 1
-KNV=$(echo $MyKernel |awk -F '/' '{ print $5 }') && [ -z "$KNV" ] && Unstall && echo "Error,Not Matched! " && exit 1
+KNN=$(echo $MyKernel |awk -F '/' '{ print $2 }') && [ -z "$KNN" ] && Uninstall && echo "Error,Not Matched! " && exit 1
+KNV=$(echo $MyKernel |awk -F '/' '{ print $5 }') && [ -z "$KNV" ] && Uninstall && echo "Error,Not Matched! " && exit 1
 wget --no-check-certificate -q -O "/tmp/appex/apxfiles/bin/acce-"$KNV"-["$KNA"_"$KNN"_"$KNK"]" "https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/$MyKernel"
-[ ! -f "/tmp/appex/apxfiles/bin/acce-"$KNV"-["$KNA"_"$KNN"_"$KNK"]" ] && Unstall && echo "Download Error,Not Found acce-$KNV-[$KNA_$KNN_$KNK]! " && exit 1
+[ ! -f "/tmp/appex/apxfiles/bin/acce-"$KNV"-["$KNA"_"$KNN"_"$KNK"]" ] && Uninstall && echo "Download Error,Not Found acce-$KNV-[$KNA_$KNN_$KNK]! " && exit 1
 }
 
 function Install()
@@ -76,7 +76,7 @@ bash /appex/bin/serverSpeeder.sh status
 exit 0
 }
 
-function Unstall()
+function Uninstall()
 {
 [ -d /etc/rc.d ] && rm -rf /etc/rc.d/init.d/serverSpeeder >/dev/null 2>&1
 [ -d /etc/rc.d ] && rm -rf /etc/rc.d/rc2.d/*serverSpeeder >/dev/null 2>&1
@@ -113,9 +113,9 @@ mkdir -p /appex/etc
 mkdir -p /appex/bin
 MAC=$(ifconfig "$Eth" |awk '/HWaddr/{ print $5 }')
 [ -z "$MAC" ] && MAC=$(ifconfig "$Eth" |awk '/ether/{ print $2 }')
-[ -z "$MAC" ] && Unstall && echo "Not Found MAC address! " && exit 1
+[ -z "$MAC" ] && Uninstall && echo "Not Found MAC address! " && exit 1
 wget --no-check-certificate -q -O "/appex/etc/apx.lic" "http://serverspeeder.azurewebsites.net/lic?mac=$MAC"
-[ "$(du -b /appex/etc/apx.lic |awk '{ print $1 }')" -ne '152' ] && Unstall && echo "Error! I can not generate the Lic for you, Please try again later! " && exit 1
+[ "$(du -b /appex/etc/apx.lic |awk '{ print $1 }')" -ne '152' ] && Uninstall && echo "Error! I can not generate the Lic for you, Please try again later! " && exit 1
 echo "Lic generate success! "
 [ -n $(which ethtool) ] && rm -rf /appex/bin/ethtool && cp -f $(which ethtool) /appex/bin
 }
@@ -123,7 +123,7 @@ echo "Lic generate success! "
 function ServerSpeeder()
 {
 [ ! -f /tmp/appex.zip ] && wget --no-check-certificate -q -O "/tmp/appex.zip" "https://raw.githubusercontent.com/0oVicero0/serverSpeeser_Install/master/appex.zip"
-[ ! -f /tmp/appex.zip ] && Unstall && echo "Error,Not Found appex.zip! " && exit 1
+[ ! -f /tmp/appex.zip ] && Uninstall && echo "Error,Not Found appex.zip! " && exit 1
 mkdir -p /tmp/appex
 unzip -o -d /tmp/appex /tmp/appex.zip
 SelectKernel;
@@ -133,8 +133,8 @@ sed -i "s/^apxexe\=.*/apxexe\=\"\/appex\/bin\/$APXEXE\"/" /tmp/appex/apxfiles/et
 }
 
 [ $# == '1' ] && [ "$1" == 'install' ] && KNK="$(uname -r)" && Install;
-[ $# == '1' ] && [ "$1" == 'unstall' ] && Welcome && pause && Unstall;
+[ $# == '1' ] && [ "$1" == 'uninstall' ] && Welcome && pause && Uninstall;
 [ $# == '2' ] && [ "$1" == 'install' ] && KNK="$2" && Install;
-echo -ne "Usage:\n     bash $0 [install |unstall |install '{serverSpeeder of Kernel Version}']\n"
+echo -ne "Usage:\n     bash $0 [install |uninstall |install '{serverSpeeder of Kernel Version}']\n"
 
 
