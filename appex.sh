@@ -12,7 +12,8 @@ echo "            |                                       -- By .Vicer |";
 echo "            ======================================================";
 echo "";
 rootness;
-cd /root
+mkdir -p /tmp
+cd /tmp
 }
 
 function rootness()
@@ -124,9 +125,9 @@ function ServerSpeeder()
 mkdir -p /tmp/appex
 unzip -o -d /tmp/appex /tmp/appex.zip
 SelectKernel;
-APXEXE=$(ls -1 /root/appex/apxfiles/bin |grep 'acce-')
-sed -i "s/^accif\=.*/accif\=\"$Eth\"/" /root/appex/apxfiles/etc/config
-sed -i "s/^apxexe\=.*/apxexe\=\"\/appex\/bin\/$APXEXE\"/" /root/appex/apxfiles/etc/config
+APXEXE=$(ls -1 /tmp/appex/apxfiles/bin |grep 'acce-')
+sed -i "s/^accif\=.*/accif\=\"$Eth\"/" /tmp/appex/apxfiles/etc/config
+sed -i "s/^apxexe\=.*/apxexe\=\"\/appex\/bin\/$APXEXE\"/" /tmp/appex/apxfiles/etc/config
 }
 
 [ $# == '1' ] && [ "$1" == 'install' ] && KNK="$(uname -r)" && Install;
