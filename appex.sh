@@ -115,7 +115,6 @@ wget --no-check-certificate -q -O "/appex/etc/apx.lic" "http://serverspeeder.azu
 [ "$(du -b /appex/etc/apx.lic |awk '{ print $1 }')" -ne '152' ] && Unstall && echo "Error! I can not generate the Lic for you, Please try again later! " && exit 1
 echo "Lic generate success! "
 [ -n $(which ethtool) ] && rm -rf /appex/bin/ethtool && cp -f $(which ethtool) /appex/bin
-sed -i "s/^apxlic=.*/apxlic=\"\\appex\/etc\/apx.lic\"/" /appex/etc/config
 }
 
 function ServerSpeeder()
