@@ -1,5 +1,5 @@
 -----------------------------   
-#\#  serverSpeeder Install  \#    
+##  ServerSpeeder Install     
 -----------------------------      
 ----------------------------- 
 #For Linux (simple)   
