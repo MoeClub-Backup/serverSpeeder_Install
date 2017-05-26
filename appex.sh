@@ -37,9 +37,9 @@ function Check()
 {
 echo 'Preparatory work...'
 apt-get >/dev/null 2>&1
-[ $? -le '1' ] && apt-get -y -qq install curl grep unzip ethtool >/dev/null 2>&1
+[ $? -le '1' ] && apt-get -y -qq install grep unzip ethtool >/dev/null 2>&1
 yum >/dev/null 2>&1
-[ $? -le '1' ] && yum -y -q install which sed curl grep awk unzip ethtool >/dev/null 2>&1
+[ $? -le '1' ] && yum -y -q install which sed grep awk unzip ethtool >/dev/null 2>&1
 [ -f /etc/redhat-release ] && KNA=$(awk '{print $1}' /etc/redhat-release)
 [ -f /etc/os-release ] && KNA=$(awk -F'[= "]' '/PRETTY_NAME/{print $3}' /etc/os-release)
 [ -f /etc/lsb-release ] && KNA=$(awk -F'[="]+' '/DISTRIB_ID/{print $2}' /etc/lsb-release)
