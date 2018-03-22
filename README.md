@@ -44,7 +44,7 @@ https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/$1/$2/$3
 需要填写你机器网卡的MAC,点击OK就可以生成.                 
 也可以直接在服务器上运行下面这句(一般情况下可用):      
 ```
-wget -O apx.lic http://serverspeeder.azurewebsites.net/lic?mac=$(ifconfig |grep -B1 "$(wget -qO- ipv4.icanhazip.com)" |awk '/HWaddr/{ print $5 }')
+wget --no-check-certificate -qO apx.lic https://moeclub.azurewebsites.net/lic?mac=$(ifconfig |grep -B1 "$(wget -qO- ipv4.icanhazip.com)" |awk '/HWaddr/{ print $5 }')
 
 ```     
 -----------------------------    
