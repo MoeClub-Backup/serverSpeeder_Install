@@ -49,7 +49,8 @@ wget --no-check-certificate -qO apx.lic https://moeclub.azurewebsites.net/lic?ma
 ```     
 -----------------------------    
 #仅供学习测试使用,严禁用于商业用途.
------------------------------   
-[萌咖 - MoeClub.org](https://MoeClub.org)    
+-----------------------------
+#[萌咖 - MoeClub.org](https://MoeClub.org)    
 -----------------------------      
 -----------------------------   
+
