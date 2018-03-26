@@ -39,7 +39,7 @@ https://raw.githubusercontent.com/0oVicero0/serverSpeeder_kernel/master/$1/$2/$3
 ```
 下载后的加速模块文件名改成这样  ```acce-$5-[$1_$2_$3]```            
 如果不改名字,可能会触发某个BUG(Debian下会触发,别的系统没用过,不清楚.)           
-许可证在这里生成: ```http://serverspeeder.azurewebsites.net/```             
+许可证在这里生成: ```https://moeclub.azurewebsites.net```             
 (用Azure免费版搭建的,不支持```HTTPS```.)          
 需要填写你机器网卡的MAC,点击OK就可以生成.                 
 也可以直接在服务器上运行下面这句(一般情况下可用):      
